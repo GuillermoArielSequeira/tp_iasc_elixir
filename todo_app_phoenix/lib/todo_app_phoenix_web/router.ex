@@ -23,9 +23,11 @@ defmodule TodoAppPhoenixWeb.Router do
   scope "/api", TodoAppPhoenixWeb do
     pipe_through :api
 
-    get "/:list/entries", TodoController, :entries
-    post "/:list", TodoController, :add_entry
-    patch "/:list/:entry_id", TodoController, :rename_entry
+    post "/todo_lists", TodoController, :create
+    get "/todo_lists/:list_name/entries", TodoController, :entries
+    post "/todo_lists/:list_name", TodoController, :add_entry
+    delete "/todo_lists/:list_name/:entry_id", TodoController, :delete_entry
+    patch "/todo_lists/:list_name/:entry_id", TodoController, :update_entry
   end
 
   # Enables LiveDashboard only for development

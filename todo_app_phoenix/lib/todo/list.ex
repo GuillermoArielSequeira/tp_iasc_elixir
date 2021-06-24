@@ -27,6 +27,15 @@ defmodule Todo.List do
     end
   end
 
+  def delete_entry(todo_list, id) do
+    new_entries = Map.delete(todo_list.entries, id)
+
+    %Todo.List{todo_list |
+      entries: new_entries,
+      auto_id: todo_list.auto_id
+    }
+  end
+
   def rename_entry(todo_list, id, new_name) do
     update_entry(
       todo_list,
