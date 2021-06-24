@@ -27,6 +27,12 @@ defmodule Todo.Server do
   end
 
   @impl GenServer
+  def handle_cast({:delete_entry, entry_id}, {name, todo_list}) do
+    new_list = Todo.List.delete_entry(todo_list, entry_id)
+    {:noreply, {name, new_list}}
+  end
+
+  @impl GenServer
   def handle_call({:entries}, _caller, {name, todo_list}) do
     entries = Todo.List.entries(todo_list)
     {:reply, entries, {name, todo_list}}
@@ -51,6 +57,10 @@ defmodule Todo.Server do
 
   def resolve_entry(todo_server, entry_id) do
     GenServer.cast(todo_server, {:resolve_entry, entry_id})
+  end
+
+  def delete_entry(todo_server, entry_id) do
+    GenServer.cast(todo_server, {:delete_entry, entry_id})
   end
 
   # Private functions
