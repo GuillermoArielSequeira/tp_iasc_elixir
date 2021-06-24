@@ -1,0 +1,21 @@
+.show-todo-list {
+  max-width: 900px;
+  margin: 20px auto;
+  &-container {
+    display: flex;
+    flex-direction: column;
+    &-button {
+      margin-top: 15px;
+      cursor: pointer;
+      text-align: center;
+      padding: 15px 40px;
+      background: #f9004d;
+      color: white;
+      border-radius: 6px;
+      align-self: center;
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+}

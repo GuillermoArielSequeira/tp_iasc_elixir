@@ -1,0 +1,23 @@
+.nav-container {
+  &-list {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    &-item {
+      text-align: center;
+      padding: 20px 40px;
+      width: 200px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      font-family: sans-serif;
+      &:hover {
+        color: #f9004d;
+      }
+      &--focus {
+        color: #f9004d;
+        border-bottom: 3px solid #f9004d;
+      }
+    }
+  }
+}
