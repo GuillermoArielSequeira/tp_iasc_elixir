@@ -25,11 +25,7 @@ defmodule TodoAppPhoenixWeb.Router do
     post "/todo_lists", TodoController, :create
     get "/todo_lists/:list_name/entries", TodoController, :entries
     post "/todo_lists/:list_name", TodoController, :add_entry
-
     delete "/todo_lists/:list_name/:entry_id", TodoController, :delete_entry
-    #patch "/todo_lists/:list_name/:entry_id/rename", TodoController, :rename_entry
-    #patch "/todo_lists/:list_name/:entry_id/resolve", TodoController, :resolve_entry
-
     patch "/todo_lists/:list_name/:entry_id", TodoController, :update_entry
   end
 
