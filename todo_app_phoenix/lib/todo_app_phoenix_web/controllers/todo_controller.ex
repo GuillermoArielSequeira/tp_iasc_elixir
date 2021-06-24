@@ -35,6 +35,7 @@ defmodule TodoAppPhoenixWeb.TodoController do
     json(conn, :ok)
   end
 
+
   @doc """
     Update either rename or resolve task with id `entry_id` from todo list with name `list_name`
   """
