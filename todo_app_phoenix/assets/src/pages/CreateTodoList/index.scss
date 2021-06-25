@@ -2,6 +2,19 @@
   max-width: 900px;
   margin: 20px auto;
 
+  &-title {
+    margin: 0 16px;
+  }
+  &-error {
+    margin: 0 16px;
+    color: red;
+  }
+
+  &-success {
+    margin: 0 16px;
+    color: green;
+  }
+
   &-container {
     display: flex;
     flex-direction: column;
