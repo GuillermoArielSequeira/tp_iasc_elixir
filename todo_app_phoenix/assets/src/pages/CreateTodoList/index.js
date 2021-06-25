@@ -12,24 +12,19 @@ const CreateTodoList = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleOnChangeNewtask = (e) => {
+    if (state.error || state.success) dispatch({ type: "clear-messages" });
     setNewTask(e.target.value);
   };
 
   const handleOnChangeNameTodoList = (e) => {
+    if (state.error || state.success) dispatch({ type: "clear-messages" });
     setNameTodoListInput(e.target.value);
   };
 
   const handleSumbitTask = (e) => {
     e.preventDefault();
     if (newTask.trim() !== "") {
-      setItems([
-        ...items,
-        {
-          id: items.length,
-          description: newTask,
-          completed: false
-        }
-      ]);
+      setItems([...items, newTask]);
       setNewTask("");
     }
   };
@@ -43,20 +38,24 @@ const CreateTodoList = () => {
   const createTodoList = (e) => {
     if (items.length > 0 && nameTodoList) {
       dispatch({ type: "create-list" });
-      createTodoListService(nameTodoListInput, items)
+      createTodoListService(nameTodoList, items)
         .then((res) => {
           setNameTodoList("");
           setNameTodoListInput("");
           setItems([]);
           setNewTask("");
           dispatch({
-            type: "success",
+            type: "create-list-success",
             payload: "La lista se creo correctamente"
           });
         })
         .catch((err) => {
+          setNameTodoList("");
+          setNameTodoListInput("");
+          setItems([]);
+          setNewTask("");
           dispatch({
-            type: "error",
+            type: "create-list-error",
             payload: "Ocurrio un error intente nuevamente"
           });
         });
@@ -105,8 +104,8 @@ const CreateTodoList = () => {
           {items.map((item, id) => (
             <span
               className='create-todo-list-container-description-item'
-              key={item.id}
-            >{`${id}. ${item.description}`}</span>
+              key={item}
+            >{`${id}. ${item}`}</span>
           ))}
         </div>
         {items.length > 0 && nameTodoList && (

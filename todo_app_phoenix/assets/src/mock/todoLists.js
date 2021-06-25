@@ -1,40 +1,40 @@
 export const todoLists = [
   {
-    id: 123,
+    id: "hola1",
     tasks: [
       {
         id: 0,
-        description: 'Task 1',
+        name: "Task 1",
         completed: false
       },
       {
         id: 1,
-        description: 'Task 2',
+        name: "Task 2",
         completed: false
       },
       {
         id: 2,
-        description: 'Task 3',
+        name: "Task 3",
         completed: false
       }
     ]
   },
   {
-    id: 124,
+    id: "hola2",
     tasks: [
       {
         id: 0,
-        description: 'Task 1',
+        name: "Task 1",
         completed: false
       },
       {
         id: 1,
-        description: 'Task 2',
+        name: "Task 2",
         completed: false
       },
       {
         id: 2,
-        description: 'Task 3',
+        name: "Task 3",
         completed: false
       }
     ]

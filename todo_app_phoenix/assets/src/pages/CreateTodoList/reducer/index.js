@@ -7,17 +7,23 @@ function reducer(state, action) {
         ...state,
         loading: true
       };
-    case "success":
+    case "create-list-success":
       return {
         ...state,
         success: action.payload,
         loading: false
       };
-    case "error":
+    case "create-list-error":
       return {
         ...state,
         error: action.payload,
         loading: false
+      };
+    case "clear-messages":
+      return {
+        ...state,
+        error: "",
+        success: ""
       };
     default:
       throw new Error();
