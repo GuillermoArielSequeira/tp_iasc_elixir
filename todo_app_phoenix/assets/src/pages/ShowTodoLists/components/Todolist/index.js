@@ -1,73 +1,26 @@
 import React, { useState } from "react";
 import EditItem from "../EditItem";
 import AddTask from "../AddTask";
-import { getIcon } from "../../../../icons";
+import TaskActions from "../TaskActions";
 import "./index.scss";
 
-const ShowTodoLists = ({ todoList }) => {
+const ShowTodoLists = ({ todoList, dispatch, ...props }) => {
   const [todoListEditable, setTodoListEditable] = useState(todoList);
   const [newTask, setNewTask] = useState("");
-
-  const handleOnChange = (e) => {
-    setNewTask(e.target.value);
-  };
-  const handleAddTask = () => {
-    setTodoListEditable({
-      id: todoListEditable.id,
-      tasks: [
-        ...todoListEditable.tasks,
-        {
-          id: todoListEditable.tasks.length + 1,
-          name: newTask,
-          completed: false
-        }
-      ]
-    });
-  };
-
-  const markTaskAsCompleted = (id, e) => {
-    e.preventDefault();
-    const foundTask = todoListEditable.tasks.find((task) => task.id === id);
-    foundTask.completed = true;
-    foundTask.edit = false;
-    setTodoListEditable({
-      id: todoListEditable.id,
-      tasks: [...todoListEditable.tasks]
-    });
-  };
-
-  const deleteTask = (id, e) => {
-    e.preventDefault();
-    const filteredTasks = todoListEditable.tasks.filter(
-      (task) => task.id !== id
-    );
-    setTodoListEditable({
-      id: todoListEditable.id,
-      tasks: [...filteredTasks]
-    });
-  };
 
   const editTask = (id, e, openInput = false) => {
     e.preventDefault();
     const foundTask = todoListEditable.tasks.find((task) => task.id === id);
     foundTask.edit = openInput;
+    if (!openInput) {
+      dispatch({ type: "clear-edit-task" });
+    }
     setTodoListEditable({
       id: todoListEditable.id,
       tasks: [...todoListEditable.tasks]
     });
   };
 
-  const changeName = (id, name) => {
-    const foundTask = todoListEditable.tasks.find((task) => task.id === id);
-    if (name.trim() !== "") {
-      foundTask.name = name;
-      setTodoListEditable({
-        id: todoListEditable.id,
-        tasks: [...todoListEditable.tasks]
-      });
-    }
-  };
-  debugger;
   return (
     <>
       <h2>{todoListEditable.id}</h2>
@@ -82,30 +35,20 @@ const ShowTodoLists = ({ todoList }) => {
                 {task.edit && (
                   <EditItem
                     closeInput={(e) => editTask(task.id, e)}
-                    changename={changeName}
-                    idTask={task.id}
-                    editTask={editTask}
+                    task={task}
+                    listName={todoListEditable.id}
+                    dispatch={dispatch}
+                    {...props}
                   />
                 )}
               </div>
-              <div className='todo-item-right-content'>
-                {task.completed && (
-                  <p className='todo-item-right-content-completed'>
-                    completada!
-                  </p>
-                )}
-                {!task.completed && (
-                  <a onClick={(e) => editTask(task.id, e, true)}>
-                    {getIcon("edit")}
-                  </a>
-                )}
-                <a onClick={(e) => markTaskAsCompleted(task.id, e)}>
-                  {getIcon("check", "green")}
-                </a>
-                <a onClick={(e) => deleteTask(task.id, e)}>
-                  {getIcon("delete", "red")}
-                </a>
-              </div>
+              <TaskActions
+                task={task}
+                editTask={editTask}
+                listName={todoListEditable.id}
+                dispatch={dispatch}
+                {...props}
+              />
             </div>
           ))
         ) : (
@@ -114,8 +57,10 @@ const ShowTodoLists = ({ todoList }) => {
       </div>
       <AddTask
         newTask={newTask}
-        onChange={handleOnChange}
-        addTask={handleAddTask}
+        setNewTask={setNewTask}
+        listName={todoListEditable.id}
+        dispatch={dispatch}
+        {...props}
       />
     </>
   );

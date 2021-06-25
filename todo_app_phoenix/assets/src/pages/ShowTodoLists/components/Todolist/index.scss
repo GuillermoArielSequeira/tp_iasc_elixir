@@ -11,18 +11,8 @@
     display: flex;
     flex-direction: column;
   }
-  &-right-content {
-    display: flex;
-    align-items: center;
-    svg {
-      cursor: pointer;
-    }
-    &-completed {
-      color: #4bb543;
-    }
-  }
 }
 
-.no-todo-item{
+.no-todo-item {
   margin: 50px 0;
 }
