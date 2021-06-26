@@ -23,6 +23,7 @@ defmodule TodoAppPhoenixWeb.Router do
   scope "/api", TodoAppPhoenixWeb do
     pipe_through :api
 
+    get "/todo_lists", TodoController, :todo_lists
     post "/todo_lists", TodoController, :create
     get "/todo_lists/:list_name/entries", TodoController, :entries
     post "/todo_lists/:list_name", TodoController, :add_entry

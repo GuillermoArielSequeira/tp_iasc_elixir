@@ -20,6 +20,15 @@ defmodule Todo.Cache do
     end
   end
 
+  def server_processes() do
+    processes = DynamicSupervisor.which_children(__MODULE__)
+    Enum.map(processes, fn x ->
+      case x do
+        {_id, child, _type, [Todo.Server]} -> Todo.Server.name(child)
+      end
+    end)
+  end
+
   defp start_child(todo_list_name) do
     DynamicSupervisor.start_child(__MODULE__, {Todo.Server, todo_list_name})
   end
