@@ -1,5 +1,10 @@
 defmodule TodoAppPhoenixWeb.TodoController do
   use TodoAppPhoenixWeb, :controller
+  # use Phoenix.Channel
+
+  # def join("todo", _message, socket) do
+  #   {:ok, socket}
+  # end
 
   @doc """
     Retrieve all the todo lists created
@@ -38,7 +43,7 @@ defmodule TodoAppPhoenixWeb.TodoController do
     list_name
     |> Todo.Cache.server_process
     |> Todo.Server.add_entry(name)
-
+    TodoAppPhoenixWeb.Endpoint.broadcast("todo", "update_list", %{ok: "ok"})
     json(conn, :ok)
   end
 
@@ -56,7 +61,7 @@ defmodule TodoAppPhoenixWeb.TodoController do
       nil -> :ok
       _ -> resolve_entry(list_name, entry_id)
     end
-
+    TodoAppPhoenixWeb.Endpoint.broadcast("todo", "update_list", %{ok: "ok"})
     json(conn, :ok)
   end
 
@@ -67,7 +72,7 @@ defmodule TodoAppPhoenixWeb.TodoController do
     list_name
       |> Todo.Cache.server_process
       |> Todo.Server.delete_entry(String.to_integer(entry_id))
-
+      TodoAppPhoenixWeb.Endpoint.broadcast("todo", "update_list", %{ok: "ok"})
     json(conn, :ok)
   end
 

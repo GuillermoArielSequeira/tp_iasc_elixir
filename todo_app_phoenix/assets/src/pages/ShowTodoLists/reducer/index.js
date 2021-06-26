@@ -25,6 +25,13 @@ function reducer(state, action) {
         todoLists: [...state.todoLists, ...action.payload],
         loading: false
       };
+    case "fetch-todo-list-success-channel":
+      return {
+        ...state,
+        success_fetch: action.message,
+        todoLists: [...action.payload],
+        loading: false
+      };
     case "fetch-todo-list-error":
       return {
         ...state,

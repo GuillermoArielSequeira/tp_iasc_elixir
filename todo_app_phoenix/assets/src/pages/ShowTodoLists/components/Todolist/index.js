@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EditItem from "../EditItem";
 import AddTask from "../AddTask";
 import TaskActions from "../TaskActions";
@@ -8,6 +8,10 @@ const ShowTodoLists = ({ todoList, dispatch, ...props }) => {
   const [todoListEditable, setTodoListEditable] = useState(todoList);
   const [newTask, setNewTask] = useState("");
   const [inputType, setInputType] = useState("");
+
+  useEffect(() => {
+    setTodoListEditable(todoList);
+  }, [todoList]);
 
   const editTask = (id, e, openInput = false) => {
     e.preventDefault();
