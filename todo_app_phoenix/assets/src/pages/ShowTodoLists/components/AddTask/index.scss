@@ -3,6 +3,11 @@
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  flex-direction: column;
+  &-error {
+    margin: 10px 0;
+    color: red;
+  }
   &-input {
     background-color: #fff;
     border-radius: 4px;
