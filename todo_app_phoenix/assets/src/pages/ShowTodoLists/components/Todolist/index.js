@@ -7,6 +7,7 @@ import "./index.scss";
 const ShowTodoLists = ({ todoList, dispatch, ...props }) => {
   const [todoListEditable, setTodoListEditable] = useState(todoList);
   const [newTask, setNewTask] = useState("");
+  const [inputType, setInputType] = useState("");
 
   const editTask = (id, e, openInput = false) => {
     e.preventDefault();
@@ -36,8 +37,10 @@ const ShowTodoLists = ({ todoList, dispatch, ...props }) => {
                   <EditItem
                     closeInput={(e) => editTask(task.id, e)}
                     task={task}
+                    todoList={todoListEditable.tasks}
                     listName={todoListEditable.id}
                     dispatch={dispatch}
+                    inputType={inputType}
                     {...props}
                   />
                 )}
@@ -47,6 +50,7 @@ const ShowTodoLists = ({ todoList, dispatch, ...props }) => {
                 editTask={editTask}
                 listName={todoListEditable.id}
                 dispatch={dispatch}
+                setInputType={setInputType}
                 {...props}
               />
             </div>

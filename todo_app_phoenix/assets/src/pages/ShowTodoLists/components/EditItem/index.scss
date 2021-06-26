@@ -3,6 +3,9 @@
   flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
+  &-selector {
+    margin: 0 10px;
+  }
   svg {
     cursor: pointer;
   }

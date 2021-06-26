@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getIcon } from "../../../../icons";
 import { editTaskService } from "../../../../services";
 import "./index.scss";
 
-const EditItem = ({ task, closeInput, listName, dispatch, state }) => {
+const EditItem = ({
+  task,
+  closeInput,
+  listName,
+  dispatch,
+  state,
+  inputType,
+  todoList
+}) => {
   const [newTask, setNewTask] = useState("");
+
+  useEffect(() => {
+    setNewTask("");
+  }, [inputType]);
 
   const handleOnChange = (e) => {
     if (state.success_edit_task || state.error_edit_task)
@@ -44,17 +56,44 @@ const EditItem = ({ task, closeInput, listName, dispatch, state }) => {
     }
   };
 
+  const handleChangePositionTask = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className='edit-item'>
-      <input
-        className='create-todo-list-container-form-input'
-        maxLength='80'
-        value={newTask}
-        onChange={handleOnChange}
-        placeholder='Actualize la tarea a realizar...'
-      />
+      {inputType === "input" ? (
+        <input
+          className='create-todo-list-container-form-input'
+          maxLength='80'
+          value={newTask}
+          onChange={handleOnChange}
+          placeholder='Actualize la tarea a realizar...'
+        />
+      ) : (
+        <>
+          <label for='positions'>Cambiar la tarea de posicion: </label>
+          <select
+            onChange={handleOnChange}
+            className='edit-item-selector'
+            id='positions'
+          >
+            {todoList.map((item) => {
+              return item.id !== task.id ? (
+                <option value={`${item.id}`}>{item.id}</option>
+              ) : null;
+            })}
+          </select>
+        </>
+      )}
       <>
-        <a onClick={handleEditTask}>{getIcon("check", "green")}</a>
+        <a
+          onClick={
+            inputType === "input" ? handleEditTask : handleChangePositionTask
+          }
+        >
+          {getIcon("check", "green")}
+        </a>
         <a onClick={closeInput}>{getIcon("close", "red")}</a>
       </>
     </div>

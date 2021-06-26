@@ -3,12 +3,14 @@ import Check from "./check";
 import Delete from "./delete";
 import Edit from "./edit";
 import Close from "./close";
+import List from "./list";
 
 const availableIcons = {
   check: Check,
   delete: Delete,
   edit: Edit,
   close: Close,
+  list: List
 };
 
 export const getIcon = (

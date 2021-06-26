@@ -3,7 +3,14 @@ import { getIcon } from "../../../../icons";
 import { removeTask, resolveTask } from "../../../../services";
 import "./index.scss";
 
-const TaskActions = ({ task, editTask, state, dispatch, listName }) => {
+const TaskActions = ({
+  task,
+  editTask,
+  state,
+  dispatch,
+  listName,
+  setInputType
+}) => {
   const handleDeleteTask = (e) => {
     e.preventDefault();
     if (state.success_edit_task || state.error_edit_task)
@@ -48,6 +55,16 @@ const TaskActions = ({ task, editTask, state, dispatch, listName }) => {
       });
   };
 
+  const handleEditIcon = (e) => {
+    setInputType("input");
+    editTask(task.id, e, true);
+  };
+
+  const handleListIcon = (e) => {
+    setInputType("selector");
+    editTask(task.id, e, true);
+  };
+
   return (
     <div className='task-actions'>
       <div className='task-actions-container'>
@@ -55,7 +72,10 @@ const TaskActions = ({ task, editTask, state, dispatch, listName }) => {
           <p className='task-actions-completed'>completada!</p>
         )}
         {!task["resolve?"] && (
-          <a onClick={(e) => editTask(task.id, e, true)}>{getIcon("edit")}</a>
+          <>
+            <a onClick={handleListIcon}>{getIcon("list")}</a>
+            <a onClick={handleEditIcon}>{getIcon("edit")}</a>
+          </>
         )}
         <a onClick={handleResolveTask}>{getIcon("check", "green")}</a>
         <a onClick={handleDeleteTask}>{getIcon("delete", "red")}</a>
