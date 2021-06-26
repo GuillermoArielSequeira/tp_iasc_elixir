@@ -9,14 +9,20 @@ const createTodoListService = (list_name, tasks) => {
     .then((response) => response);
 };
 
+const getTodoListNames = () => {
+  return axios
+    .get(`http://localhost:4000/api/todo_lists`)
+    .then((response) => response);
+};
+
 const fetchAllTodoLists = async () => {
   let todoListsReturn = [];
 
   //obtengo la lista con todas la tareas
   try {
-    const response = ["hola1", "hola2"];
+    const response = await getTodoListNames();
 
-    for (let list of response) {
+    for (let list of response.data) {
       const request = await axios.get(
         `http://localhost:4000/api/todo_lists/${list}/entries`
       );
