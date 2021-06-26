@@ -2,6 +2,13 @@ defmodule TodoAppPhoenixWeb.TodoController do
   use TodoAppPhoenixWeb, :controller
 
   @doc """
+    Retrieve all the todo lists created
+  """
+  def todo_lists(conn, _params) do
+    json(conn, Todo.Cache.server_processes())
+  end
+
+  @doc """
     Create new todo list with name `list_name` and some initial tasks `tasks`.
     `tasks` can me empty or optional
   """

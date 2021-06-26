@@ -33,6 +33,11 @@ defmodule Todo.Server do
   end
 
   @impl GenServer
+  def handle_call({:name}, _caller, {name, todo_list}) do
+    {:reply, name, {name, todo_list}}
+  end
+
+  @impl GenServer
   def handle_call({:entries}, _caller, {name, todo_list}) do
     entries = Todo.List.entries(todo_list)
     {:reply, entries, {name, todo_list}}
@@ -41,6 +46,10 @@ defmodule Todo.Server do
   # Interface functions
   def start_link(name) do
     GenServer.start_link(Todo.Server, name, name: via_tuple(name))
+  end
+
+  def name(todo_server) do
+    GenServer.call(todo_server, {:name})
   end
 
   def add_entry(todo_server, new_entry) do
