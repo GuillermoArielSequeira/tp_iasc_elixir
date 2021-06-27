@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: iasc-elixir
+spec:
+  selector:
+    matchLabels:
+      app: iasc-elixir
+  serviceName: iasc-elixir
+  podManagementPolicy: Parallel
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: iasc-elixir
+    spec:
+      containers:
+      - name: iasc-elixir
+        image: docker-registry.default.svc:5000/utn-trackmed-dev/iasc-elixir:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4000
