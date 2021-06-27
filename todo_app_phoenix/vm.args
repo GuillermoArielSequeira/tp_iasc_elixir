@@ -1,1 +1,1 @@
--name node@${HOSTNAME}
+-name iasc-elixir@${HOSTNAME}

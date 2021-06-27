@@ -2,20 +2,20 @@ defmodule TodoAppPhoenix.Application do
   use Application
 
   def start(_type, _args) do
-    topologies = [
-      example: [
-        strategy: Cluster.Strategy.Epmd,
-        config: [
-          hosts: [
-            :"node@iasc-elixir-0.iasc-elixir.default.svc.cluster.local",
-            :"node@iasc-elixir-1.iasc-elixir.default.svc.cluster.local",
-            :"node@iasc-elixir-2.iasc-elixir.default.svc.cluster.local"
-          ]
-        ]
+    topologies = 
+    [
+    example: [
+      strategy: Cluster.Strategy.Kubernetes.DNSSRV,
+      config: [
+        service: "iasc-elixir",
+        namespace: "utn-trackmed-dev",
+        application_name: "iasc-elixir",
+        polling_interval: 10_000
       ]
     ]
+  ]
     children = [
-      {Cluster.Supervisor, [topologies, [name: TodoAppPhoenix.ClusterSupervisor]]}
+      {Cluster.Supervisor, [topologies, [name: TodoAppPhoenix.ClusterSupervisor]]},
       TodoAppPhoenixWeb.Telemetry,
       {Phoenix.PubSub, name: TodoAppPhoenix.PubSub},
       TodoAppPhoenixWeb.Endpoint,
