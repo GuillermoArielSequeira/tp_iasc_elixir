@@ -2,18 +2,18 @@ defmodule TodoAppPhoenix.Application do
   use Application
 
   def start(_type, _args) do
-    topologies = 
-    [
-    example: [
-      strategy: Cluster.Strategy.Kubernetes.DNSSRV,
-      config: [
-        service: "iasc-elixir",
-        namespace: "utn-trackmed-dev",
-        application_name: "iasc-elixir",
-        polling_interval: 10_000
-      ]
+    topologies = [
+  default: [
+    strategy: Cluster.Strategy.Kubernetes,
+    config: [
+      mode: :dns,
+      kubernetes_node_basename: "iasc-elixir",
+      kubernetes_selector: "app=iasc-elixir",
+      kubernetes_namespace: "utn-trackmed-dev",
+      polling_interval: 10_000
     ]
   ]
+]
     children = [
       {Cluster.Supervisor, [topologies, [name: TodoAppPhoenix.ClusterSupervisor]]},
       TodoAppPhoenixWeb.Telemetry,
