@@ -1,5 +1,3 @@
-ARG ALPINE_VERSION=3.8
-
 FROM elixir:alpine
 
 WORKDIR /opt/app
