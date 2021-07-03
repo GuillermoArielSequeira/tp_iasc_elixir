@@ -10,9 +10,9 @@ defmodule TodoAppPhoenix.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: TodoAppPhoenix.PubSub},
       # Start Horde
-      TodoAppPhoenix.HordeRegistry,
-      TodoAppPhoenix.HordeSupervisor,
       TodoAppPhoenix.NodeObserver,
+      TodoAppPhoenix.Horde.Registry,
+      TodoAppPhoenix.Horde.Cache,
       # Start Domain childrens
       TodoAppPhoenix.Todo.System,
 

@@ -1,4 +1,4 @@
-defmodule TodoAppPhoenix.HordeRegistry do
+defmodule TodoAppPhoenix.Horde.Registry do
   use Horde.Registry
 
   def start_link(_) do
@@ -12,6 +12,11 @@ defmodule TodoAppPhoenix.HordeRegistry do
   end
 
   defp members() do
-    Enum.map([Node.self() | Node.list()], &{__MODULE__, &1})
+    [Node.self() | Node.list()]
+    |> Enum.map(fn node -> {__MODULE__, node} end)
+  end
+
+  def via_tuple(key) do
+    {:via, Horde.Registry, {__MODULE__, key}}
   end
 end

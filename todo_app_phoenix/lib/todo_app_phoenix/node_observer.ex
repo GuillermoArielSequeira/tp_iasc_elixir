@@ -1,7 +1,7 @@
 defmodule TodoAppPhoenix.NodeObserver do
   use GenServer
 
-  alias TodoAppPhoenix.{HordeRegistry, HordeSupervisor}
+  alias TodoAppPhoenix.Horde.{Cache, Registry}
   # alias Phoenix.PubSub
 
   # @topic "node_observer"
@@ -17,8 +17,8 @@ defmodule TodoAppPhoenix.NodeObserver do
   end
 
   def handle_info({:nodeup, _node, _node_type}, state) do
-    set_members(HordeRegistry)
-    set_members(HordeSupervisor)
+    set_members(Cache)
+    set_members(Registry)
 
     # PubSub.broadcast(VersionObserver.PubSub, @topic, :nodeup)
 
@@ -26,8 +26,8 @@ defmodule TodoAppPhoenix.NodeObserver do
   end
 
   def handle_info({:nodedown, _node, _node_type}, state) do
-    set_members(HordeRegistry)
-    set_members(HordeSupervisor)
+    set_members(Cache)
+    set_members(Registry)
 
     # PubSub.broadcast(VersionObserver.PubSub, @topic, :nodedown)
 
