@@ -1,4 +1,6 @@
-defmodule Todo.Cache do
+defmodule TodoAppPhoenix.Todo.Cache do
+
+  alias TodoAppPhoenix.Todo.{Server}
 
   def start_link() do
     IO.puts("Starting todo cache")
@@ -24,13 +26,13 @@ defmodule Todo.Cache do
     processes = DynamicSupervisor.which_children(__MODULE__)
     Enum.map(processes, fn x ->
       case x do
-        {_id, child, _type, [Todo.Server]} -> Todo.Server.name(child)
+        {_id, child, _type, [Server]} -> Server.name(child)
       end
     end)
   end
 
   defp start_child(todo_list_name) do
-    DynamicSupervisor.start_child(__MODULE__, {Todo.Server, todo_list_name})
+    DynamicSupervisor.start_child(__MODULE__, {Server, todo_list_name})
   end
 
 end

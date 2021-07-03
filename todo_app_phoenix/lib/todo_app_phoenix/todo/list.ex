@@ -1,16 +1,18 @@
-defmodule Todo.List do
+defmodule TodoAppPhoenix.Todo.List do
   @derive Jason.Encoder
   defstruct auto_id: 1, entries: %{}
 
+  alias TodoAppPhoenix.Todo.{List, Task}
+
   def new() do
-    %Todo.List{}
+    %List{}
   end
 
   def add_entry(todo_list, name) do
-    entry = Map.put(Todo.Task.new(todo_list.auto_id, name), :id, todo_list.auto_id)
+    entry = Map.put(Task.new(todo_list.auto_id, name), :id, todo_list.auto_id)
     new_entries = Map.put(todo_list.entries, todo_list.auto_id, entry)
 
-    %Todo.List{todo_list |
+    %List{todo_list |
       entries: new_entries,
       auto_id: todo_list.auto_id + 1
     }
@@ -30,7 +32,7 @@ defmodule Todo.List do
   def delete_entry(todo_list, id) do
     new_entries = Map.delete(todo_list.entries, id)
 
-    %Todo.List{todo_list |
+    %List{todo_list |
       entries: new_entries,
       auto_id: todo_list.auto_id
     }
@@ -40,7 +42,7 @@ defmodule Todo.List do
     update_entry(
       todo_list,
       id,
-      fn entry -> Todo.Task.rename(entry, new_name) end
+      fn entry -> Task.rename(entry, new_name) end
     )
   end
 
@@ -60,7 +62,7 @@ defmodule Todo.List do
       {:ok, old_entry} ->
         new_entry = updater_fun.(old_entry)
         new_entries = Map.put(todo_list.entries, new_entry.id, new_entry)
-        %Todo.List{todo_list | entries: new_entries}
+        %List{todo_list | entries: new_entries}
     end
   end
 

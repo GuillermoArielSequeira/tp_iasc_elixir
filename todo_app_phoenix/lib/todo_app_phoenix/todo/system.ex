@@ -1,10 +1,10 @@
-defmodule Todo.System do
+defmodule TodoAppPhoenix.Todo.System do
 
   def start_link() do
     Supervisor.start_link(
       [
-        Todo.ProcessRegistry,
-        Todo.Cache
+        TodoAppPhoenix.Todo.ProcessRegistry,
+        TodoAppPhoenix.Todo.Cache
       ],
       strategy: :one_for_one
     )

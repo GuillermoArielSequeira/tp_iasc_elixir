@@ -1,34 +1,36 @@
-defmodule Todo.Server do
+defmodule TodoAppPhoenix.Todo.Server do
   use GenServer, restart: :temporary
+
+  alias TodoAppPhoenix.Todo.{List, ProcessRegistry, Server}
 
   # Callback functions
   @impl GenServer
   def init(name) do
     IO.puts("Starting todo server for #{name}")
-    {:ok, {name, Todo.List.new()}}
+    {:ok, {name, List.new()}}
   end
 
   @impl GenServer
   def handle_cast({:rename_entry, entry_id, new_name}, {name, todo_list}) do
-    new_list = Todo.List.rename_entry(todo_list, entry_id, new_name)
+    new_list = List.rename_entry(todo_list, entry_id, new_name)
     {:noreply, {name, new_list}}
   end
 
   @impl GenServer
   def handle_cast({:add_entry, new_entry}, {name, todo_list}) do
-    new_list = Todo.List.add_entry(todo_list, new_entry)
+    new_list = List.add_entry(todo_list, new_entry)
     {:noreply, {name, new_list}}
   end
 
   @impl GenServer
   def handle_cast({:resolve_entry, entry_id}, {name, todo_list}) do
-    new_list = Todo.List.resolve_entry(todo_list, entry_id)
+    new_list = List.resolve_entry(todo_list, entry_id)
     {:noreply, {name, new_list}}
   end
 
   @impl GenServer
   def handle_cast({:delete_entry, entry_id}, {name, todo_list}) do
-    new_list = Todo.List.delete_entry(todo_list, entry_id)
+    new_list = List.delete_entry(todo_list, entry_id)
     {:noreply, {name, new_list}}
   end
 
@@ -39,13 +41,13 @@ defmodule Todo.Server do
 
   @impl GenServer
   def handle_call({:entries}, _caller, {name, todo_list}) do
-    entries = Todo.List.entries(todo_list)
+    entries = List.entries(todo_list)
     {:reply, entries, {name, todo_list}}
   end
 
   # Interface functions
   def start_link(name) do
-    GenServer.start_link(Todo.Server, name, name: via_tuple(name))
+    GenServer.start_link(Server, name, name: via_tuple(name))
   end
 
   def name(todo_server) do
@@ -74,7 +76,7 @@ defmodule Todo.Server do
 
   # Private functions
   defp via_tuple(name) do
-    Todo.ProcessRegistry.via_tuple({__MODULE__, name})
+    ProcessRegistry.via_tuple({__MODULE__, name})
   end
 
 end

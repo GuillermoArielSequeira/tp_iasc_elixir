@@ -6,7 +6,7 @@ defmodule TodoAppPhoenix.Application do
       TodoAppPhoenixWeb.Telemetry,
       {Phoenix.PubSub, name: TodoAppPhoenix.PubSub},
       TodoAppPhoenixWeb.Endpoint,
-      Todo.System
+      TodoAppPhoenix.Todo.System
     ]
 
     opts = [strategy: :one_for_one, name: TodoAppPhoenix.Supervisor]

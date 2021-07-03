@@ -1,9 +1,11 @@
-defmodule Todo.Task do
+defmodule TodoAppPhoenix.Todo.Task do
   @derive Jason.Encoder
   defstruct id: nil, name: nil, resolve?: false
 
+  alias TodoAppPhoenix.Todo.Task, as: Task
+
   def new(id, name) do
-    %Todo.Task{id: id, name: name}
+    %Task{id: id, name: name}
   end
 
   def rename(task, new_name) do

@@ -1,4 +1,4 @@
-defmodule Todo.ProcessRegistry do
+defmodule TodoAppPhoenix.Todo.ProcessRegistry do
 
   def start_link() do
     Registry.start_link(keys: :unique, name: __MODULE__)
