@@ -11,11 +11,10 @@ defmodule TodoAppPhoenix.Application do
       {Phoenix.PubSub, name: TodoAppPhoenix.PubSub},
       # Start Horde
       TodoAppPhoenix.NodeObserver,
+      # Start Domain childrens
+      # TodoAppPhoenix.Todo.System,
       TodoAppPhoenix.Horde.Registry,
       TodoAppPhoenix.Horde.Cache,
-      # Start Domain childrens
-      TodoAppPhoenix.Todo.System,
-
       # Start the Endpoint (http/https)
       TodoAppPhoenixWeb.Endpoint
     ]

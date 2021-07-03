@@ -2,7 +2,7 @@ defmodule TodoAppPhoenixWeb.TodoController do
   use TodoAppPhoenixWeb, :controller
   # use Phoenix.Channel
 
-  alias TodoAppPhoenix.Todo.{Cache, Server}
+  alias TodoAppPhoenix.Horde.{Cache, Server}
 
   # def join("todo", _message, socket) do
   #   {:ok, socket}

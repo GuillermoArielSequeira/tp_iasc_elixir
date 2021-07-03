@@ -1,8 +1,6 @@
 defmodule TodoAppPhoenix.Horde.Cache do
   use Horde.DynamicSupervisor
 
-  alias TodoAppPhoenix.Todo.{Server}
-
   def start_link(_) do
     IO.puts("Starting todo cache")
     Horde.DynamicSupervisor.start_link(__MODULE__, [strategy: :one_for_one], name: __MODULE__)
@@ -26,13 +24,13 @@ defmodule TodoAppPhoenix.Horde.Cache do
     processes = Horde.DynamicSupervisor.which_children(__MODULE__)
     Enum.map(processes, fn x ->
       case x do
-        {_id, child, _type, [Server]} -> Server.name(child)
+        {_id, child, _type, [TodoAppPhoenix.Horde.Server]} -> TodoAppPhoenix.Horde.Server.name(child)
       end
     end)
   end
 
   defp start_child(todo_list_name) do
-    Horde.DynamicSupervisor.start_child(__MODULE__, {Server, todo_list_name})
+    Horde.DynamicSupervisor.start_child(__MODULE__, {TodoAppPhoenix.Horde.Server, todo_list_name})
   end
 
   defp members() do

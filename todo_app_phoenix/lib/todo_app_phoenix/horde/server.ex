@@ -1,7 +1,8 @@
 defmodule TodoAppPhoenix.Horde.Server do
   use GenServer, restart: :temporary
 
-  alias TodoAppPhoenix.Todo.{List, Server}
+  alias TodoAppPhoenix.Todo.List
+  alias TodoAppPhoenix.Horde.Server
   alias TodoAppPhoenix.Horde.Registry
 
   # Callback functions
