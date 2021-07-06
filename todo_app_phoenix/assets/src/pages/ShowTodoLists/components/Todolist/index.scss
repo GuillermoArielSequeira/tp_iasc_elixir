@@ -1,0 +1,18 @@
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 10px;
+  }
+  &-description {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.no-todo-item {
+  margin: 50px 0;
+}

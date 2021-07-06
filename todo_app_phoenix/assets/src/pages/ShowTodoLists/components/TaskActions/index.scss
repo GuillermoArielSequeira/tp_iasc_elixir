@@ -1,0 +1,18 @@
+.task-actions {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  &-container {
+    display: flex;
+  }
+  svg {
+    cursor: pointer;
+  }
+  &-completed {
+    color: #4bb543;
+  }
+  &-error {
+    color: red;
+    font-size: 10px;
+  }
+}

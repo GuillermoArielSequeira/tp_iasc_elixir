@@ -1,0 +1,31 @@
+.add-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  flex-direction: column;
+  &-error {
+    margin: 10px 0;
+    color: red;
+  }
+  &-input {
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: #555;
+    font-size: 14px;
+    height: 25px;
+    width: 400px;
+  }
+
+  &-button {
+    margin-left: 5px;
+    cursor: pointer;
+    text-align: center;
+    padding: 4px;
+    background: #f9004d;
+    color: white;
+    border-radius: 6px;
+    align-self: center;
+  }
+}
