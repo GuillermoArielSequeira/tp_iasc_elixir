@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const createTodoListService = (list_name, tasks) => {
   return axios
-    .post("http://localhost:4000/api/todo_lists", {
+    .post(window.location.origin + "/api/todo_lists", {
       list_name,
       tasks
     })
@@ -11,7 +11,7 @@ const createTodoListService = (list_name, tasks) => {
 
 const getTodoListNames = () => {
   return axios
-    .get(`http://localhost:4000/api/todo_lists`)
+    .get(window.location.origin + "/api/todo_lists")
     .then((response) => response);
 };
 
@@ -24,7 +24,7 @@ const fetchAllTodoLists = async () => {
 
     for (let list of response.data) {
       const request = await axios.get(
-        `http://localhost:4000/api/todo_lists/${list}/entries`
+        window.location.origin + `/api/todo_lists/${list}/entries`
       );
       todoListsReturn = [...todoListsReturn, { id: list, tasks: request.data }];
     }
@@ -37,7 +37,7 @@ const fetchAllTodoLists = async () => {
 
 const addTaskToList = (list_name, new_task) => {
   return axios
-    .post(`http://localhost:4000/api/todo_lists/${list_name}`, {
+    .post(window.location.origin + `/api/todo_lists/${list_name}`, {
       name: new_task
     })
     .then((response) => response);
@@ -45,13 +45,13 @@ const addTaskToList = (list_name, new_task) => {
 
 const removeTask = (list_name, task_id) => {
   return axios
-    .delete(`http://localhost:4000/api/todo_lists/${list_name}/${task_id}`)
+    .delete(window.location.origin + `/api/todo_lists/${list_name}/${task_id}`)
     .then((response) => response);
 };
 
 const resolveTask = (list_name, task_id) => {
   return axios
-    .patch(`http://localhost:4000/api/todo_lists/${list_name}/${task_id}`, {
+    .patch(window.location.origin + `/api/todo_lists/${list_name}/${task_id}`, {
       resolve: true
     })
     .then((response) => response);
@@ -59,7 +59,7 @@ const resolveTask = (list_name, task_id) => {
 
 const editTaskService = (list_name, task_id, name) => {
   return axios
-    .patch(`http://localhost:4000/api/todo_lists/${list_name}/${task_id}`, {
+    .patch(window.location.origin + `/api/todo_lists/${list_name}/${task_id}`, {
       name
     })
     .then((response) => response);
