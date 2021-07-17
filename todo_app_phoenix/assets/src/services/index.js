@@ -11,7 +11,7 @@ const createTodoListService = (list_name, tasks) => {
 
 const getTodoListNames = () => {
   return axios
-    .get(window.location.origin + "/api/todo_lists")
+    .get(window.location.origin + `/api/todo_lists`)
     .then((response) => response);
 };
 

@@ -46,7 +46,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://trackmed.com.ar",
   "devDependencies": {
     "cpx": "^1.5.0",
     "mkdirp": "^1.0.4"
